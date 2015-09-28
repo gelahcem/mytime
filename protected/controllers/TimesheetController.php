@@ -162,10 +162,10 @@ class TimesheetController extends Controller {
      * Allows direct edit and update a row in the CgridView.
      */
     public function actionEditableGrid() {
-        $model = new Timesheet('search');
+        $model = new Timesheet();
 
         if (isset($_POST['Timesheet'])) {
-            foreach ($model->search()->data as $i => $item) {
+            foreach ($model->searchByDay($this->lunedisem)->data as $i => $item) {
                 if (isset($_POST['Timesheet'][$i])) {
                     $item->attributes = $_POST['Timesheet'][$i];
                     $item->save()? Yii::app()->user->setFlash('success', "commessa registrata"):'';

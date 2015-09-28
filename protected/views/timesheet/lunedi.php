@@ -2,18 +2,10 @@
 /* @var $this TimesheetController */
 /* @var $model Timesheet */
 
-$lunedi = new CActiveDataProvider('Timesheet', array(
-   'criteria'=>array(
-          'select'=>'DATASHORT,IDCOMMESSA, DESCRIZIONE, ORE',
-          'condition'=> 'DATASHORT= :id',
-          'params'=> array(':id'=>date('Y-m-d', strtotime('monday this week')))
-       )
-));
-
 $this->widget('zii.widgets.grid.CGridView', array(
                                     'id' => 'timesheet-grid-a',
                                     'summaryText' => '',
-                                    'dataProvider' => $lunedi,
+                                    'dataProvider' => $model->searchByDay($this->lunedisem),
                                     //'filter'=>$model,
                                     'columns' => array(
                                         array(
@@ -28,7 +20,6 @@ $this->widget('zii.widgets.grid.CGridView', array(
                                             'name' => 'DESCRIZIONE',
                                             'type' => 'raw',
                                             'value' => '$data->getInputField(\'DESCRIZIONE\',$row)',
-                                            'value' => 'CHtml::encode($data->DESCRIZIONE)',
                                             'headerHtmlOptions' => array('size' => '400px;'),
                                         ),
                                         array(

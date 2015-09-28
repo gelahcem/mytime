@@ -192,5 +192,36 @@ class Timesheet extends CActiveRecord {
 
         return true;
     }
-
+    
+    public function searchByDay($datashort) {
+ 
+        $criteria = new CDbCriteria;
+ 
+        $criteria->compare('ID', $this->ID);
+        $criteria->compare('DATASHORT', $datashort);
+ 
+        $item_count = self::model()->count($criteria);
+ 
+        $pages = new CPagination($item_count);
+        $pages->setPageSize(10);
+ 
+        $sort = new CSort();
+ 
+        /*if (!empty($templateParams)) {
+            $pages->params = $templateParams;
+            $sort->params = $templateParams;
+        }
+ 
+        if ($routeUrl) {
+            $pages->route = $routeUrl;
+            $sort->route = $routeUrl;
+        }*/
+ 
+        return new CActiveDataProvider($this, array(
+            'criteria' => $criteria,
+            'pagination' => $pages,
+            'sort' => $sort,
+        ));
+    }
+    
 }
