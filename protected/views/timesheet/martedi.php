@@ -2,18 +2,10 @@
 /* @var $this TimesheetController */
 /* @var $model Timesheet */
 
-$martedi = new CActiveDataProvider('Timesheet', array(
-   'criteria'=>array(
-          'select'=>'DATASHORT,IDCOMMESSA, DESCRIZIONE, ORE',
-          'condition'=> 'DATASHORT= :id',
-          'params'=> array(':id'=>date('Y-m-d', strtotime('tuesday this week')))
-       )
-));
-
 $this->widget('zii.widgets.grid.CGridView', array(
                                     'id' => 'timesheet-grid-b',
                                     'summaryText' => '',
-                                    'dataProvider' => $martedi,
+                                    'dataProvider' => $model->searchByDay($this->martedisem),
                                     'columns' => array(
                                         array(
                                             'header' => 'Commessa',
